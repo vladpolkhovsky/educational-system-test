@@ -1,0 +1,23 @@
+ingress:
+  enabled: false
+
+autoscaling:
+  enabled: false
+  minReplicas: 1
+
+replicaCount: 1
+
+collabora:
+  aliasgroups:
+    - host: "https://collabora.docker.localhost:443"
+    - host: "https://platform.docker.localhost:443"
+    - host: "https://docker.localhost:443"
+  extra_params: --disable-ssl
+
+resources:
+  limits:
+    cpu: "1800m"
+    memory: "2000Mi"
+  requests:
+    cpu: "1000m"
+    memory: "1000Mi"

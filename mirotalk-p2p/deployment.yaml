@@ -1,0 +1,64 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mirotalk-p2p
+  namespace: traefik
+spec:
+  selector:
+    matchLabels:
+      app: mirotalk-p2p
+  template:
+    metadata:
+      labels:
+        app: mirotalk-p2p
+    spec:
+      volumes:
+        - name: env-volume
+          configMap:
+            name: mirotalk-env
+      containers:
+      - name: mirotalk-p2p
+        image: mirotalk/p2p:latest
+        volumeMounts:
+          - mountPath: /src/.env
+            name: env-volume
+            subPath: .env
+        resources:
+          requests:
+            cpu: 0.5
+            memory: 128Mi
+          limits:
+            memory: 256Mi
+            cpu: 1
+        ports:
+        - containerPort: 9090
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mirotalk-p2p
+  namespace: traefik
+spec:
+  selector:
+    app: mirotalk-p2p
+  ports:
+    - port: 9090
+---
+apiVersion: gateway.networking.k8s.io/v1
+kind: HTTPRoute
+metadata:
+  name: mirotalk-p2p
+  namespace: traefik
+spec:
+  parentRefs:
+    - name: traefik-gateway
+  hostnames:
+    - "mirotalk.docker.localhost"
+  rules:
+    - matches:
+        - path:
+            type: PathPrefix
+            value: /
+      backendRefs:
+        - name: mirotalk-p2p
+          port: 9090
