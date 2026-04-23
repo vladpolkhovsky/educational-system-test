@@ -51,6 +51,26 @@ providers:
     enabled: false
   kubernetesGateway:
     enabled: true
+  kubernetesCRD:
+    enabled: true
+    entryPoint: websecure
+
+# Let's Encrypt ACME Configuration
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: admin@example.com
+      storage: /data/acme.json
+      # TLS-ALPN-01 challenge - doesn't require HTTP server
+      tlsChallenge: true
+
+# Persistence for ACME certificates
+persistence:
+  enabled: true
+  name: acme-storage
+  size: 1Mi
+  storageClass: ""
+  path: /data
 
 gateway:
   listeners:
@@ -62,14 +82,10 @@ gateway:
 
     websecure:
       port: 443
-      protocol: HTTPS 
+      protocol: HTTPS
       namespacePolicy:
         from: All
       mode: Terminate
-      certificateRefs:    
-        - kind: Secret
-          name: local-selfsigned-tls
-          group: ""
 
 # Enable Observability
 logs:

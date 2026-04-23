@@ -1,0 +1,17 @@
+{
+  "letsencrypt": {
+    "Account": {
+      "Email": "admin@example.com",
+      "Registration": {
+        "body": {
+          "status": "valid",
+          "contact": [
+            "mailto:admin@example.com"
+          ]
+        },
+        "URI": "https://acme-v02.api.letsencrypt.org/acme/acct/placeholder"
+      }
+    },
+    "Certificates": []
+  }
+}

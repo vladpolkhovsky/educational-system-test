@@ -52,6 +52,7 @@ metadata:
 spec:
   parentRefs:
     - name: traefik-gateway
+      sectionName: websecure
   hostnames:
     - "mirotalk.docker.localhost"
   rules:
