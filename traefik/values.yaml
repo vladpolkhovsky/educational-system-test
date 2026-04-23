@@ -61,15 +61,13 @@ certificatesResolvers:
     acme:
       email: admin@example.com
       storage: /data/acme.json
-      # TLS-ALPN-01 challenge - doesn't require HTTP server
       tlsChallenge: true
 
-# Persistence for ACME certificates
+# Persistence using PVC
 persistence:
   enabled: true
-  name: acme-storage
-  size: 1Mi
   storageClass: ""
+  size: 1Mi
   path: /data
 
 gateway:
