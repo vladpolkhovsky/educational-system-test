@@ -54,13 +54,14 @@ providers:
   kubernetesCRD:
     enabled: true
 
-# Let's Encrypt ACME Configuration
+# Let's Encrypt ACME Configuration - using HTTP-01 challenge
 certificatesResolvers:
   letsencrypt:
     acme:
       email: admin@example.com
       storage: /data/acme.json
-      tlsChallenge: true
+      httpChallenge:
+        entryPoint: web
 
 # Persistence disabled - no storage available
 persistence:
