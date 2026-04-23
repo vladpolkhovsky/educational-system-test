@@ -3,6 +3,9 @@ helm repo add collabora https://collaboraonline.github.io/online
 
 kubectl create namespace traefik
 
+# Create dummy TLS secret for Gateway (placeholder - will be replaced by Let's Encrypt)
+kubectl create secret tls dummy-tls --cert=./traefik/tls.crt --key=./traefik/tls.key --namespace traefik || true
+
 # Create ACME secret for Let's Encrypt certificates storage
 kubectl create secret generic acme-json --from-file=acme.json=./traefik/acme.json --namespace traefik || true
 

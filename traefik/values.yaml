@@ -62,12 +62,9 @@ certificatesResolvers:
       storage: /data/acme.json
       tlsChallenge: true
 
-# Persistence using PVC
+# Persistence disabled - no storage available
 persistence:
-  enabled: true
-  storageClass: ""
-  size: 1Mi
-  path: /data
+  enabled: false
 
 gateway:
   listeners:
