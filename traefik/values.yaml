@@ -53,7 +53,6 @@ providers:
     enabled: true
   kubernetesCRD:
     enabled: true
-    entryPoint: websecure
 
 # Let's Encrypt ACME Configuration
 certificatesResolvers:
